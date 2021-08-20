@@ -23,13 +23,16 @@ public class HapiServerConfig extends RestfulServer {
     @Inject
     RequestTenantPartitionInterceptor requestTenantPartitionInterceptor;
 
+    @Inject
+    PatientController patientController;
+
     @Override
     public void initialize() {
         setFhirContext(FhirContext.forR4());
         setTenantIdentificationStrategy(new UrlBaseTenantIdentificationStrategy());
 
         List<IResourceProvider> resourceProviders = new ArrayList<>();
-        resourceProviders.add(new PatientController());
+        resourceProviders.add(patientController);
 
         setResourceProviders(resourceProviders);
 
